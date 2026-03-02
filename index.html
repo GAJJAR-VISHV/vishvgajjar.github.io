@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vishv Gajjar — AWS Partner Alliance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #f5f5f7;
+    --surface: rgba(255,255,255,0.72);
+    --surface-border: rgba(0,0,0,0.08);
+    --text-primary: #1d1d1f;
+    --text-secondary: #6e6e73;
+    --text-tertiary: #aeaeb2;
+    --accent: #0071e3;
+    --accent-hover: #0077ed;
+    --accent-soft: rgba(0,113,227,0.08);
+    --green: #34c759;
+    --orange: #ff9f0a;
+    --red: #ff3b30;
+    --purple: #bf5af2;
+    --teal: #5ac8fa;
+    --blur: blur(20px) saturate(180%);
+    --radius-sm: 10px;
+    --radius-md: 16px;
+    --radius-lg: 22px;
+    --radius-xl: 28px;
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.06), 0 0 1px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 24px rgba(0,0,0,0.08), 0 0 1px rgba(0,0,0,0.04);
+    --shadow-lg: 0 8px 40px rgba(0,0,0,0.12), 0 0 1px rgba(0,0,0,0.04);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: -apple-system, 'SF Pro Display', BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── BACKGROUND ── */
+  .bg-mesh {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% -10%, rgba(0,113,227,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 50% at 85% 30%, rgba(191,90,242,0.05) 0%, transparent 60%),
+      radial-gradient(ellipse 70% 70% at 50% 100%, rgba(90,200,250,0.06) 0%, transparent 60%),
+      #f5f5f7;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    height: 52px;
+    background: rgba(245,245,247,0.82);
+    backdrop-filter: var(--blur);
+    -webkit-backdrop-filter: var(--blur);
+    border-bottom: 1px solid var(--surface-border);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .nav-inner {
+    width: 100%; max-width: 1100px;
+    padding: 0 32px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo { font-size: 15px; font-weight: 600; letter-spacing: -0.3px; color: var(--text-primary); text-decoration: none; }
+  .nav-links { display: flex; gap: 28px; }
+  .nav-links a {
+    font-size: 13px; font-weight: 400; color: var(--text-secondary);
+    text-decoration: none; transition: var(--transition);
+    letter-spacing: -0.1px;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ── WRAPPER ── */
+  main { position: relative; z-index: 1; padding-top: 52px; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 32px; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: calc(100vh - 52px);
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 80px 0 60px;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--surface);
+    border: 1px solid var(--surface-border);
+    backdrop-filter: var(--blur);
+    border-radius: 100px;
+    padding: 5px 14px 5px 10px;
+    font-size: 12px; font-weight: 500; color: var(--accent);
+    margin-bottom: 28px;
+    width: fit-content;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-badge-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 0 2px rgba(52,199,89,0.2);
+    animation: pulse 2s ease infinite;
+  }
+  @keyframes pulse {
+    0%,100% { box-shadow: 0 0 0 2px rgba(52,199,89,0.2); }
+    50% { box-shadow: 0 0 0 5px rgba(52,199,89,0.1); }
+  }
+  .hero-name {
+    font-size: clamp(52px, 7vw, 88px);
+    font-weight: 700;
+    letter-spacing: -3px;
+    line-height: 1.0;
+    color: var(--text-primary);
+    animation: fadeUp 0.6s 0.1s ease both;
+    margin-bottom: 12px;
+  }
+  .hero-name span {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-title {
+    font-size: clamp(18px, 2.5vw, 26px);
+    font-weight: 300;
+    color: var(--text-secondary);
+    letter-spacing: -0.5px;
+    animation: fadeUp 0.6s 0.2s ease both;
+    margin-bottom: 28px;
+  }
+  .hero-desc {
+    max-width: 520px;
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--text-secondary);
+    animation: fadeUp 0.6s 0.3s ease both;
+    margin-bottom: 40px;
+  }
+  .hero-actions {
+    display: flex; gap: 12px; flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 11px 22px;
+    border-radius: 980px;
+    font-size: 14px; font-weight: 500;
+    text-decoration: none; cursor: pointer; border: none;
+    transition: var(--transition);
+    letter-spacing: -0.1px;
+  }
+  .btn-primary {
+    background: var(--accent); color: #fff;
+    box-shadow: 0 2px 12px rgba(0,113,227,0.35);
+  }
+  .btn-primary:hover { background: var(--accent-hover); box-shadow: 0 4px 20px rgba(0,113,227,0.45); transform: translateY(-1px); }
+  .btn-secondary {
+    background: var(--surface);
+    border: 1px solid var(--surface-border);
+    backdrop-filter: var(--blur);
+    color: var(--text-primary);
+    box-shadow: var(--shadow-sm);
+  }
+  .btn-secondary:hover { background: rgba(255,255,255,0.9); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+  .btn-download {
+    background: linear-gradient(135deg, #1d1d1f, #3a3a3c);
+    color: #fff;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+  }
+  .btn-download:hover { background: linear-gradient(135deg, #3a3a3c, #1d1d1f); box-shadow: 0 4px 20px rgba(0,0,0,0.28); transform: translateY(-1px); }
+
+  /* hero stats */
+  .hero-stats {
+    display: flex; gap: 0; margin-top: 64px;
+    animation: fadeUp 0.6s 0.5s ease both;
+    border-top: 1px solid var(--surface-border);
+    padding-top: 40px;
+  }
+  .stat { flex: 1; padding-right: 32px; }
+  .stat:not(:last-child) { border-right: 1px solid var(--surface-border); margin-right: 32px; }
+  .stat-num {
+    font-size: 36px; font-weight: 700;
+    letter-spacing: -1.5px;
+    color: var(--text-primary);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .stat-num span { color: var(--accent); }
+  .stat-label { font-size: 12px; color: var(--text-tertiary); font-weight: 400; letter-spacing: 0.2px; }
+
+  /* ── SECTION ── */
+  section { padding: 100px 0; }
+  .section-eyebrow {
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    color: var(--text-primary);
+    margin-bottom: 48px;
+    line-height: 1.1;
+  }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--surface);
+    backdrop-filter: var(--blur);
+    -webkit-backdrop-filter: var(--blur);
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    overflow: hidden;
+  }
+  .card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: rgba(0,0,0,0.1); }
+
+  /* ── EXPERIENCE ── */
+  .exp-grid { display: flex; flex-direction: column; gap: 16px; }
+  .exp-card { padding: 28px 32px; }
+  .exp-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 6px; gap: 16px; }
+  .exp-company { font-size: 13px; font-weight: 500; color: var(--accent); margin-bottom: 4px; }
+  .exp-role { font-size: 20px; font-weight: 600; letter-spacing: -0.5px; color: var(--text-primary); }
+  .exp-period {
+    font-size: 12px; font-weight: 500;
+    background: var(--accent-soft);
+    color: var(--accent);
+    padding: 4px 12px;
+    border-radius: 100px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .exp-bullets { margin-top: 16px; display: flex; flex-direction: column; gap: 8px; }
+  .exp-bullet {
+    font-size: 14px; line-height: 1.6; color: var(--text-secondary);
+    padding-left: 16px; position: relative;
+  }
+  .exp-bullet::before {
+    content: '';
+    position: absolute; left: 0; top: 9px;
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.5;
+  }
+  .exp-highlight { font-weight: 600; color: var(--text-primary); }
+
+  /* ── SKILLS BENTO ── */
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-auto-rows: minmax(80px, auto);
+    gap: 14px;
+  }
+  .bento-card { padding: 24px; min-width: 0; overflow: hidden; }
+  .bento-card.col-4 { grid-column: span 4; }
+  .bento-card.col-5 { grid-column: span 5; }
+  .bento-card.col-7 { grid-column: span 7; }
+  .bento-card.col-6 { grid-column: span 6; }
+  .bento-card.col-8 { grid-column: span 8; }
+  .bento-card.col-3 { grid-column: span 3; }
+  .bento-card.col-12 { grid-column: span 12; }
+
+  .bento-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    margin-bottom: 14px;
+  }
+  .bento-label { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 6px; }
+  .bento-value { font-size: 22px; font-weight: 700; letter-spacing: -0.8px; color: var(--text-primary); }
+  .bento-sub { font-size: 13px; color: var(--text-secondary); margin-top: 4px; }
+
+  /* cert tags */
+  .cert-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+  .cert-tag {
+    font-size: 12px; font-weight: 500;
+    padding: 5px 11px;
+    border-radius: 100px;
+    background: rgba(0,0,0,0.04);
+    color: var(--text-secondary);
+    border: 1px solid var(--surface-border);
+  }
+  .cert-tag.aws { background: rgba(255,153,0,0.08); color: #d68910; border-color: rgba(255,153,0,0.2); }
+  .cert-tag.azure { background: rgba(0,120,212,0.07); color: #0078d4; border-color: rgba(0,120,212,0.15); }
+  .cert-tag.tf { background: rgba(94,48,157,0.07); color: #7b2d8b; border-color: rgba(94,48,157,0.15); }
+
+  /* skill bar */
+  .skill-row { margin-bottom: 14px; }
+  .skill-row:last-child { margin-bottom: 0; }
+  .skill-meta { display: flex; justify-content: space-between; margin-bottom: 5px; }
+  .skill-name { font-size: 13px; font-weight: 500; color: var(--text-primary); }
+  .skill-pct { font-size: 12px; color: var(--text-tertiary); }
+  .skill-bar-bg { height: 4px; background: rgba(0,0,0,0.06); border-radius: 100px; overflow: hidden; }
+  .skill-bar-fill {
+    height: 100%; border-radius: 100px;
+    background: linear-gradient(90deg, var(--accent), var(--teal));
+    transform-origin: left;
+    animation: barGrow 1s 0.5s cubic-bezier(0.4,0,0.2,1) both;
+  }
+  @keyframes barGrow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+  /* big number card */
+  .big-number { font-size: 56px; font-weight: 800; letter-spacing: -3px; color: var(--text-primary); line-height: 1; }
+  .big-number span { color: var(--accent); }
+
+  /* ── CONTACT ── */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .contact-card {
+    padding: 24px 28px;
+    display: flex; align-items: center; gap: 16px;
+    text-decoration: none; color: inherit;
+  }
+  .contact-icon-wrap {
+    width: 44px; height: 44px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; flex-shrink: 0;
+  }
+  .contact-label { font-size: 12px; color: var(--text-tertiary); margin-bottom: 2px; }
+  .contact-value { font-size: 15px; font-weight: 500; color: var(--text-primary); }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 40px 32px;
+    border-top: 1px solid var(--surface-border);
+    font-size: 13px;
+    color: var(--text-tertiary);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .reveal {
+    opacity: 0; transform: translateY(20px);
+    transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1), transform 0.7s cubic-bezier(0.4,0,0.2,1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .container { padding: 0 20px; }
+    .hero { padding: 60px 0 40px; }
+    .hero-stats { flex-direction: column; gap: 24px; }
+    .stat:not(:last-child) { border-right: none; margin-right: 0; border-bottom: 1px solid var(--surface-border); padding-bottom: 24px; }
+    .bento-card.col-4, .bento-card.col-5, .bento-card.col-7, .bento-card.col-6, .bento-card.col-8 { grid-column: span 12; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .exp-header { flex-direction: column; gap: 8px; }
+  }  /* scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<div class="bg-mesh"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">VG</a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero" id="about">
+    <div class="container">
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        Open to opportunities
+      </div>
+      <h1 class="hero-name">Vishv<br><span>Gajjar</span></h1>
+      <p class="hero-title">AWS Partner Alliance · Cloud GTM</p>
+      <p class="hero-desc">
+        Building hyperscaler partnerships that actually drive revenue. I turn AWS relationships into co-sell pipelines, Marketplace listings, and funded POCs — accelerating partner tiers faster than anyone expects.
+      </p>
+      <div class="hero-actions">
+        <a href="mailto:vishvbgajjar@gmail.com" class="btn btn-primary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
+          Get in touch
+        </a>
+        <a href="https://www.linkedin.com/in/vishv-gajjar" target="_blank" class="btn btn-secondary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+        <a href="tel:+919157942755" class="btn btn-secondary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.1a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.16 6.16l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 17z"/></svg>
+          +91 915 794 2755
+        </a>
+        <a href="resume_VISHV_GAJJAR.pdf" download="Vishv_Gajjar_Resume.pdf" class="btn btn-download">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download Resume
+        </a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-num">75<span>d</span></div>
+          <div class="stat-label">Select → Advanced AWS Tier</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">$30<span>M+</span></div>
+          <div class="stat-label">Sales pipeline managed</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">50<span>+</span></div>
+          <div class="stat-label">AWS opportunities closed</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">3<span>+</span></div>
+          <div class="stat-label">Years in cloud partnerships</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="container">
+      <p class="section-eyebrow reveal">Career</p>
+      <h2 class="section-title reveal">Work Experience</h2>
+      <div class="exp-grid">
+
+        <div class="card exp-card reveal">
+          <div class="exp-header">
+            <div>
+              <div class="exp-company">Bacancy Technology</div>
+              <div class="exp-role">Partner Alliance</div>
+            </div>
+            <div class="exp-period">Dec 2025 – Present</div>
+          </div>
+          <div class="exp-bullets">
+            <p class="exp-bullet">Led AWS Partnership journey — achieved <span class="exp-highlight">Select Tier in 15 days</span>, then Advanced Tier 60 days later by tracking KPIs and audit readiness.</p>
+            <p class="exp-bullet">Owned a <span class="exp-highlight">co-sell pipeline of $20K+/month</span> via AWS ACE portal with consistent pipeline hygiene and opportunity registration.</p>
+            <p class="exp-bullet">Managed AWS Marketplace, solution one-pagers, and GTM execution to clearly showcase AWS capabilities and tier achievements.</p>
+            <p class="exp-bullet">Managed the AWS <span class="exp-highlight">RDS Service Delivery Program (SDP)</span> ensuring adherence to AWS validation standards and best practices.</p>
+            <p class="exp-bullet">Primary liaison between company and AWS PDMs, Solution Architects, and Industry Account Executives.</p>
+          </div>
+        </div>
+
+        <div class="card exp-card reveal">
+          <div class="exp-header">
+            <div>
+              <div class="exp-company">Intuitive.ai (formerly Intuitive.Cloud)</div>
+              <div class="exp-role">Global BD & Partner Alliance — Healthcare & Life Sciences</div>
+            </div>
+            <div class="exp-period">Aug 2024 – Nov 2025</div>
+          </div>
+          <div class="exp-bullets">
+            <p class="exp-bullet">Owned management of a <span class="exp-highlight">$30M+ sales pipeline</span> in HubSpot, improving forecast accuracy and executive visibility.</p>
+            <p class="exp-bullet">Drove end-to-end lifecycle of <span class="exp-highlight">50+ AWS opportunities</span> through APN portal from lead registration to project closure.</p>
+            <p class="exp-bullet">Secured critical <span class="exp-highlight">AWS sponsorship funds</span> including MAP, POA, POC & MDF for strategic client migrations.</p>
+            <p class="exp-bullet">Engineered HubSpot CRM framework as single source of truth with automated dashboards for leadership insights.</p>
+            <p class="exp-bullet">Architected solution designs using Excalidraw, Draw.io, and C4 model for both technical and executive audiences.</p>
+          </div>
+        </div>
+
+        <div class="card exp-card reveal">
+          <div class="exp-header">
+            <div>
+              <div class="exp-company">Aubergine Solutions</div>
+              <div class="exp-role">ASE Cloud & DevOps</div>
+            </div>
+            <div class="exp-period">Aug 2024 – Nov 2025</div>
+          </div>
+          <div class="exp-bullets">
+            <p class="exp-bullet">Led technical & business validation workstream to secure company's <span class="exp-highlight">AWS APN Partnership status</span>.</p>
+            <p class="exp-bullet">Acted as technical solution architect in pre-sales, creating cloud architecture blueprints using Draw.io and Lucidchart.</p>
+            <p class="exp-bullet">Functioned as trusted <span class="exp-highlight">cloud financial advisor</span>, guiding clients through FinOps to save over <span class="exp-highlight">$20,000 annually</span>.</p>
+            <p class="exp-bullet">Collaborated with AWS PDM to co-sell and qualify migration & modernization opportunities.</p>
+          </div>
+        </div>
+
+        <div class="card exp-card reveal">
+          <div class="exp-header">
+            <div>
+              <div class="exp-company">Intuitive.Cloud (Ahmedabad)</div>
+              <div class="exp-role">Cloud and DevOps Intern</div>
+            </div>
+            <div class="exp-period">Dec 2022 – Aug 2023</div>
+          </div>
+          <div class="exp-bullets">
+            <p class="exp-bullet">Delivered <span class="exp-highlight">40% reduction in cloud spend</span> via comprehensive cost-optimization including rightsizing and automated shutdowns.</p>
+            <p class="exp-bullet">Reduced manual deployment times from <span class="exp-highlight">14 hours to minutes</span> using IaC with Terraform/CloudFormation.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS & CERTS -->
+  <section id="skills">
+    <div class="container">
+      <p class="section-eyebrow reveal">Expertise</p>
+      <h2 class="section-title reveal">Skills & Certifications</h2>
+
+      <div class="bento-grid">
+
+        <!-- Core Skills -->
+        <div class="card bento-card col-5 reveal">
+          <div class="bento-label">Core Competencies</div>
+          <div style="margin-top: 8px;">
+            <div class="skill-row">
+              <div class="skill-meta"><span class="skill-name">AWS Partner Alliance</span><span class="skill-pct">98%</span></div>
+              <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:98%"></div></div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-meta"><span class="skill-name">Co-sell & GTM Strategy</span><span class="skill-pct">95%</span></div>
+              <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:95%"></div></div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-meta"><span class="skill-name">AWS Marketplace</span><span class="skill-pct">90%</span></div>
+              <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:90%"></div></div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-meta"><span class="skill-name">HubSpot CRM</span><span class="skill-pct">88%</span></div>
+              <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:88%"></div></div>
+            </div>
+            <div class="skill-row">
+              <div class="skill-meta"><span class="skill-name">Cloud Architecture</span><span class="skill-pct">82%</span></div>
+              <div class="skill-bar-bg"><div class="skill-bar-fill" style="width:82%"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Big stat -->
+        <div class="card bento-card col-4 reveal" style="display:flex; flex-direction:column; justify-content:space-between;">
+          <div class="bento-label">Pipeline Managed</div>
+          <div>
+            <div class="big-number">$30<span>M</span></div>
+            <div class="bento-sub" style="margin-top:8px;">Across Healthcare & multi-vertical AWS GTM programs</div>
+          </div>
+        </div>
+
+        <!-- Location / Availability -->
+        <div class="card bento-card col-3 reveal" style="background: linear-gradient(135deg, rgba(0,113,227,0.07), rgba(90,200,250,0.05)); min-width: 0; overflow: hidden;">
+          <div class="bento-label">Location</div>
+          <div style="font-size:26px; margin: 10px 0 4px;">📍</div>
+          <div class="bento-value" style="font-size:16px; word-break: break-word;">Ahmedabad, India</div>
+          <div class="bento-sub">Open to remote & hybrid</div>
+        </div>
+
+        <!-- Tools -->
+        <div class="card bento-card col-7 reveal">
+          <div class="bento-label">Tools & Programs</div>
+          <div class="cert-grid" style="margin-top:10px;">
+            <span class="cert-tag">AWS ACE</span>
+            <span class="cert-tag">AWS MDF</span>
+            <span class="cert-tag">AWS MAP</span>
+            <span class="cert-tag">AWS POC Funding</span>
+            <span class="cert-tag">HubSpot</span>
+            <span class="cert-tag">Excalidraw</span>
+            <span class="cert-tag">Draw.io</span>
+            <span class="cert-tag">C4 Model</span>
+            <span class="cert-tag">Terraform</span>
+            <span class="cert-tag">CloudFormation</span>
+          </div>
+        </div>
+
+        <!-- Education -->
+        <div class="card bento-card col-5 reveal" style="background: linear-gradient(135deg, rgba(52,199,89,0.05), rgba(90,200,250,0.04));">
+          <div class="bento-label">Education</div>
+          <div style="margin-top:10px; display:flex; flex-direction:column; gap:12px;">
+            <div>
+              <div style="font-size:14px; font-weight:600; color:var(--text-primary);">B.Tech — Information Technology</div>
+              <div style="font-size:12px; color:var(--text-secondary); margin-top:2px;">Charotar University of Science & Technology · 2020–2023</div>
+            </div>
+            <div>
+              <div style="font-size:14px; font-weight:600; color:var(--text-primary);">Diploma — Information Technology</div>
+              <div style="font-size:12px; color:var(--text-secondary); margin-top:2px;">Gujarat Technological University · 2017–2020</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CERTIFICATIONS & BADGES -->
+        <div class="card bento-card col-12 reveal">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; flex-wrap:wrap; gap:8px;">
+            <div class="bento-label" style="margin-bottom:0;">Certifications &amp; Badges</div>
+            <a href="https://www.credly.com/users/vishv-gajjar.9ec2cb36" target="_blank" style="color:var(--accent); text-decoration:none; font-size:12px; font-weight:600;">Verify on Credly ↗</a>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:18px;">
+            <div>
+              <div style="font-size:11px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--text-tertiary); margin-bottom:10px;">AWS Certifications</div>
+              <div class="cert-grid">
+                <span class="cert-tag aws">AWS Certified Cloud Practitioner</span>
+                <span class="cert-tag aws">AWS Certified Solutions Architect – Associate</span>
+              </div>
+            </div>
+            <div>
+              <div style="font-size:11px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--text-tertiary); margin-bottom:10px;">AWS Partner Badges</div>
+              <div class="cert-grid">
+                <span class="cert-tag aws">Technical Accredited</span>
+                <span class="cert-tag aws">Sales Accreditation</span>
+                <span class="cert-tag aws">Generative AI Sales 2024 – Specialized</span>
+                <span class="cert-tag aws">Generative AI Essentials</span>
+                <span class="cert-tag aws">Digital Sovereignty Essentials</span>
+                <span class="cert-tag aws">Migration Acceleration Program Authorized</span>
+                <span class="cert-tag aws">Well-Architected Proficient</span>
+              </div>
+            </div>
+            <div>
+              <div style="font-size:11px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--text-tertiary); margin-bottom:10px;">Other Certifications</div>
+              <div class="cert-grid">
+                <span class="cert-tag tf">HashiCorp: Terraform Associate (002)</span>
+                <span class="cert-tag azure">Microsoft: Azure Fundamentals</span>
+                <span class="cert-tag">Databricks: Fundamentals Accredited</span>
+                <span class="cert-tag">Databricks: AWS Platform Architect Accredited</span>
+                <span class="cert-tag">Juniper: Innovative Sales Champion</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <p class="section-eyebrow reveal">Let's Connect</p>
+      <h2 class="section-title reveal">Get in Touch</h2>
+
+      <div class="contact-grid reveal">
+        <a href="mailto:vishvbgajjar@gmail.com" class="card contact-card">
+          <div class="contact-icon-wrap" style="background: rgba(255,59,48,0.08);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff3b30" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
+          </div>
+          <div>
+            <div class="contact-label">Email</div>
+            <div class="contact-value">vishvbgajjar@gmail.com</div>
+          </div>
+        </a>
+        <a href="tel:+919157942755" class="card contact-card">
+          <div class="contact-icon-wrap" style="background: rgba(52,199,89,0.08);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#34c759" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13.1a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.16 6.16l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 17z"/></svg>
+          </div>
+          <div>
+            <div class="contact-label">Phone</div>
+            <div class="contact-value">+91 915 794 2755</div>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/vishv-gajjar" target="_blank" class="card contact-card">
+          <div class="contact-icon-wrap" style="background: rgba(0,119,181,0.08);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#0077b5"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </div>
+          <div>
+            <div class="contact-label">LinkedIn</div>
+            <div class="contact-value">Vishv Gajjar</div>
+          </div>
+        </a>
+        <div class="card contact-card">
+          <div class="contact-icon-wrap" style="background: rgba(255,159,10,0.08);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff9f0a" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <div class="contact-label">Location</div>
+            <div class="contact-value">Ahmedabad, Gujarat, India</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>Crafted with care · Vishv Gajjar · 2025</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, 60 * (Array.from(entry.target.parentNode.children).indexOf(entry.target) % 4));
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
