@@ -70,7 +70,30 @@
     padding: 0 32px;
     display: flex; align-items: center; justify-content: space-between;
   }
-  .nav-logo { font-size: 15px; font-weight: 600; letter-spacing: -0.3px; color: var(--text-primary); text-decoration: none; }
+  .nav-logo {
+    font-size: 15px; font-weight: 600; letter-spacing: -0.3px;
+    color: var(--text-primary); text-decoration: none;
+    position: relative; display: inline-flex; align-items: center;
+    overflow: hidden;
+  }
+  .nav-logo-full, .nav-logo-short {
+    display: block;
+    transition: opacity 0.35s cubic-bezier(0.4,0,0.2,1), transform 0.35s cubic-bezier(0.4,0,0.2,1);
+  }
+  .nav-logo-short {
+    position: absolute; left: 0;
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  /* scrolled state */
+  .nav-logo.scrolled .nav-logo-full {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  .nav-logo.scrolled .nav-logo-short {
+    opacity: 1;
+    transform: translateY(0);
+  }
   .nav-links { display: flex; gap: 28px; }
   .nav-links a {
     font-size: 13px; font-weight: 400; color: var(--text-secondary);
@@ -120,6 +143,8 @@
     color: var(--text-primary);
     animation: fadeUp 0.6s 0.1s ease both;
     margin-bottom: 12px;
+    white-space: nowrap;
+    white-space: nowrap;
   }
   .hero-name span {
     background: linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%);
@@ -361,7 +386,79 @@
     .bento-card.col-4, .bento-card.col-5, .bento-card.col-7, .bento-card.col-6, .bento-card.col-8 { grid-column: span 12; }
     .contact-grid { grid-template-columns: 1fr; }
     .exp-header { flex-direction: column; gap: 8px; }
-  }  /* scrollbar */
+  }  /* ── BADGE CARDS ── */
+  .badges-card-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  /* Credly iframes render inside these divs — give them a subtle hover lift */
+  .badges-card-grid > div[data-share-badge-id] {
+    flex-shrink: 0;
+    border-radius: 12px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .badges-card-grid > div[data-share-badge-id]:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.10);
+  }
+  .badge-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    background: rgba(255,255,255,0.6);
+    transition: var(--transition);
+  }
+  .badge-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: rgba(0,113,227,0.15);
+  }
+  .badge-card-img-wrap {
+    background: rgba(248,248,250,0.8);
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px;
+    border-bottom: 1px solid var(--surface-border);
+    min-height: 130px;
+  }
+  .badge-card-img-wrap img {
+    width: 80px; height: 80px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.10));
+    transition: transform 0.3s ease;
+  }
+  .badge-card:hover .badge-card-img-wrap img {
+    transform: scale(1.08);
+  }
+  .badge-card-body {
+    padding: 14px 16px;
+    display: flex; flex-direction: column; gap: 4px;
+    flex: 1;
+  }
+  .badge-card-name {
+    font-size: 13px; font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.4;
+  }
+  .badge-card-issuer {
+    font-size: 11.5px;
+    color: var(--text-secondary);
+  }
+  .badge-card-date {
+    font-size: 11.5px;
+    color: var(--text-tertiary);
+    margin-top: 4px;
+  }
+  .badge-card-date.expired { color: #ff3b30; }
+  .badge-card-date.expires { color: var(--text-secondary); }
+
+  /* scrollbar */
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 3px; }
@@ -374,7 +471,10 @@
 <!-- NAV -->
 <nav>
   <div class="nav-inner">
-    <a href="#" class="nav-logo">VG</a>
+    <a href="#" class="nav-logo" id="nav-logo">
+        <span class="nav-logo-full">Vishv Gajjar</span>
+        <span class="nav-logo-short">VG</span>
+      </a>
     <div class="nav-links">
       <a href="#about">About</a>
       <a href="#experience">Experience</a>
@@ -393,13 +493,13 @@
         <span class="hero-badge-dot"></span>
         Open to opportunities
       </div>
-      <h1 class="hero-name">Vishv<br><span>Gajjar</span></h1>
+      <h1 class="hero-name">Vishv <span>Gajjar</span></h1>
       <p class="hero-title">AWS Partner Alliance · Cloud GTM</p>
       <p class="hero-desc">
         Building hyperscaler partnerships that actually drive revenue. I turn AWS relationships into co-sell pipelines, Marketplace listings, and funded POCs — accelerating partner tiers faster than anyone expects.
       </p>
       <div class="hero-actions">
-        <a href="mailto:vishvbgajjar@gmail.com" class="btn btn-primary">
+        <a href="/cdn-cgi/l/email-protection#82f4ebf1eaf4e0e5e3e8e8e3f0c2e5efe3ebeeace1edef" class="btn btn-primary">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
           Get in touch
         </a>
@@ -597,43 +697,27 @@
           </div>
         </div>
 
-        <!-- CERTIFICATIONS & BADGES -->
-        <div class="card bento-card col-12 reveal">
-          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; flex-wrap:wrap; gap:8px;">
-            <div class="bento-label" style="margin-bottom:0;">Certifications &amp; Badges</div>
-            <a href="https://www.credly.com/users/vishv-gajjar.9ec2cb36" target="_blank" style="color:var(--accent); text-decoration:none; font-size:12px; font-weight:600;">Verify on Credly ↗</a>
+                <!-- CERTIFICATIONS & BADGES -->
+        <div class="card bento-card col-12 reveal" style="overflow:visible;">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:24px; flex-wrap:wrap; gap:8px;">
+            <div class="bento-label" style="margin-bottom:0;">Certifications & Badges</div>
+            <a href="https://www.credly.com/users/vishv-gajjar.9ec2cb36" target="_blank" style="color:var(--accent); text-decoration:none; font-size:12px; font-weight:600;">View all on Credly ↗</a>
           </div>
-          <div style="display:flex; flex-direction:column; gap:18px;">
-            <div>
-              <div style="font-size:11px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--text-tertiary); margin-bottom:10px;">AWS Certifications</div>
-              <div class="cert-grid">
-                <span class="cert-tag aws">AWS Certified Cloud Practitioner</span>
-                <span class="cert-tag aws">AWS Certified Solutions Architect – Associate</span>
-              </div>
-            </div>
-            <div>
-              <div style="font-size:11px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--text-tertiary); margin-bottom:10px;">AWS Partner Badges</div>
-              <div class="cert-grid">
-                <span class="cert-tag aws">Technical Accredited</span>
-                <span class="cert-tag aws">Sales Accreditation</span>
-                <span class="cert-tag aws">Generative AI Sales 2024 – Specialized</span>
-                <span class="cert-tag aws">Generative AI Essentials</span>
-                <span class="cert-tag aws">Digital Sovereignty Essentials</span>
-                <span class="cert-tag aws">Migration Acceleration Program Authorized</span>
-                <span class="cert-tag aws">Well-Architected Proficient</span>
-              </div>
-            </div>
-            <div>
-              <div style="font-size:11px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--text-tertiary); margin-bottom:10px;">Other Certifications</div>
-              <div class="cert-grid">
-                <span class="cert-tag tf">HashiCorp: Terraform Associate (002)</span>
-                <span class="cert-tag azure">Microsoft: Azure Fundamentals</span>
-                <span class="cert-tag">Databricks: Fundamentals Accredited</span>
-                <span class="cert-tag">Databricks: AWS Platform Architect Accredited</span>
-                <span class="cert-tag">Juniper: Innovative Sales Champion</span>
-              </div>
-            </div>
+          <div class="badges-card-grid">
+            <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="410a3e5f-a62b-4df1-874e-81a50bf83d37" data-share-badge-host="https://www.credly.com"></div>
+            <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="eb343b78-b3e0-4d97-808d-80e0d0bb1b87" data-share-badge-host="https://www.credly.com"></div>
+            <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="45aa3b91-59ca-4ce2-b572-47b4796ae119" data-share-badge-host="https://www.credly.com"></div>
+            <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="8f910817-dd26-4b41-a543-25c14e528448" data-share-badge-host="https://www.credly.com"></div>
+            <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="795c822b-0821-40ce-a2dc-c794be5d12a7" data-share-badge-host="https://www.credly.com"></div>
+            <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="4bfd4046-3c19-4055-8196-881edf9fc68f" data-share-badge-host="https://www.credly.com"></div>
+            <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="60ad00d6-7726-4d7a-812e-c3327a09ba27" data-share-badge-host="https://www.credly.com"></div>
+            <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="a815bb94-4dd0-48b9-9e05-b692959c1cef" data-share-badge-host="https://www.credly.com"></div>
+            <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="6ecbd4eb-0d8f-4cf3-bda9-f050d35a49ee" data-share-badge-host="https://www.credly.com"></div>
+            <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="7db63af2-e1b5-4944-b5ef-f014cbec7fc2" data-share-badge-host="https://www.credly.com"></div>
+            <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="07986ce2-ccd4-4c9b-ae5d-4f8aaf8fd27b" data-share-badge-host="https://www.credly.com"></div>
+            <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="959efae9-6798-4321-8d9d-cf0d8f41a3f5" data-share-badge-host="https://www.credly.com"></div>
           </div>
+          <script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
         </div>
 
       </div>
@@ -647,13 +731,13 @@
       <h2 class="section-title reveal">Get in Touch</h2>
 
       <div class="contact-grid reveal">
-        <a href="mailto:vishvbgajjar@gmail.com" class="card contact-card">
+        <a href="/cdn-cgi/l/email-protection#8ef8e7fde6f8ece9efe4e4effccee9e3efe7e2a0ede1e3" class="card contact-card">
           <div class="contact-icon-wrap" style="background: rgba(255,59,48,0.08);">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ff3b30" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
           </div>
           <div>
             <div class="contact-label">Email</div>
-            <div class="contact-value">vishvbgajjar@gmail.com</div>
+            <div class="contact-value"><span class="__cf_email__" data-cfemail="186e716b706e7a7f797272796a587f75797174367b7775">[email&#160;protected]</span></div>
           </div>
         </a>
         <a href="tel:+919157942755" class="card contact-card">
@@ -707,7 +791,22 @@
     });
   }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
   reveals.forEach(el => observer.observe(el));
-</script>
 
+  // ── NAV LOGO SCROLL SWAP ──
+  // At top: shows "Vishv Gajjar" | on scroll: morphs to "VG"
+  const navLogo = document.getElementById('nav-logo');
+  const heroSection = document.getElementById('about');
+
+  function updateNavLogo() {
+    const heroBottom = heroSection.getBoundingClientRect().bottom;
+    if (heroBottom < 80) {
+      navLogo.classList.add('scrolled');
+    } else {
+      navLogo.classList.remove('scrolled');
+    }
+  }
+  window.addEventListener('scroll', updateNavLogo, { passive: true });
+  updateNavLogo();
+</script>
 </body>
 </html>
